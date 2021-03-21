@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import GoogleLogin from 'react-google-login';
+import GoogleButton from 'react-google-button'
 
 import { auth } from "utils/nhost";
+
+async function loginWithGoogle() {
+  auth.login({ provider: 'google' });
+}
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -21,22 +25,9 @@ export function Login() {
     history.push("/");
   }
 
-  async function handleGoogle(e) {
-
-  }
-
   return (
     <div>
-      <GoogleLogin
-        clientId="375702423113-9r247bhkgk8clpvcr4s8f7t0sd84plue.apps.googleusercontent.com"
-        render={renderProps => (
-          <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
-        )}
-        buttonText="Login"
-        onSuccess={handleGoogle}
-        onFailure={handleGoogle}
-        cookiePolicy={'single_host_origin'}
-      />
+      <GoogleButton onClick={loginWithGoogle} />
       <div>Login</div>
       <div>
         <form onSubmit={handleSubmit}>
